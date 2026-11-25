@@ -2,9 +2,14 @@ name: CI y despliegue de CompraFácil
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
-    branches: [main]
+    branches:
+      - main
+
+permissions:
+  contents: read
 
 jobs:
   pruebas:
@@ -16,29 +21,37 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24
-      - name: Ejecutar pruebas automáticas
+      - name: Ejecutar pruebas
         run: npm test
 
-  publicar:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  preparar-pagina:
     needs: pruebas
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pages: write
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v6
+      - name: Preparar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Preparar los archivos de la tienda
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  publicar:
+    needs: preparar-pagina
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Descargar el código
-        uses: actions/checkout@v6
-      - name: Preparar GitHub Pages
-        uses: actions/configure-pages@v5
-      - name: Preparar la página de CompraFácil
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: site
       - name: Desplegar la tienda
         id: deployment
         uses: actions/deploy-pages@v4
