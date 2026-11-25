@@ -4,55 +4,327 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>CompraFácil | Demo DevOps</title>
-  <link rel="stylesheet" href="style.css">
+
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: #eef3ff;
+      background: #0b1020;
+      font-synthesis: none;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 12% 0%, #182449 0, transparent 38%),
+        #0b1020;
+    }
+
+    .page {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 36px 0 24px;
+    }
+
+    .hero, .card, .statusbar {
+      border: 1px solid #273252;
+      border-radius: 20px;
+      background: rgba(18, 25, 47, .9);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 34px;
+      background: linear-gradient(115deg, #182449, #111932 68%, #1a2548);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -80px;
+      top: -100px;
+      border-radius: 50%;
+      background: #7768ff;
+      opacity: .15;
+      filter: blur(8px);
+    }
+
+    .eyebrow {
+      margin: 0 0 14px;
+      color: #a99fff;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .13em;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(34px, 7vw, 56px);
+      letter-spacing: -.04em;
+    }
+
+    .subtitle {
+      max-width: 680px;
+      margin: 12px 0 0;
+      color: #b9c3df;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .statusbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin: 18px 0;
+      padding: 16px 20px;
+      color: #b9c3df;
+    }
+
+    .statusbar strong { color: #eef3ff; }
+    .good { color: #65e6b3; font-weight: 700; }
+    .alert { color: #ff8585; font-weight: 800; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 18px;
+    }
+
+    .card { padding: 24px; }
+
+    .card h2 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: -.02em;
+    }
+
+    .muted {
+      color: #aab5d1;
+      line-height: 1.55;
+    }
+
+    .order {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 22px 0 16px;
+      padding: 16px;
+      border: 1px solid #303d61;
+      border-radius: 14px;
+      background: #101831;
+      color: #aab5d1;
+    }
+
+    .order strong { color: #eef3ff; }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    button {
+      min-height: 46px;
+      border: 1px solid transparent;
+      border-radius: 11px;
+      padding: 11px 14px;
+      color: white;
+      background: #685cff;
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+      transition: transform .15s ease, filter .15s ease;
+    }
+
+    button:hover { transform: translateY(-1px); filter: brightness(1.1); }
+    button:focus-visible { outline: 3px solid #b7b0ff; outline-offset: 2px; }
+
+    .secondary { background: #c94d65; }
+    .soft {
+      border-color: #344163;
+      background: #1b2543;
+      color: #dce3fa;
+    }
+
+    .warning {
+      border-color: #73552d;
+      background: #382b1d;
+      color: #ffd393;
+    }
+
+    .result {
+      min-height: 54px;
+      margin: 16px 0 0;
+      padding: 14px;
+      border: 1px solid #303d61;
+      border-radius: 12px;
+      background: #101831;
+      color: #c8d2ee;
+      line-height: 1.5;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .metric {
+      padding: 17px;
+      border: 1px solid #303d61;
+      border-radius: 14px;
+      background: #101831;
+    }
+
+    .metric span {
+      display: block;
+      color: #aab5d1;
+      font-size: 13px;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 7px;
+      font-size: 30px;
+    }
+
+    .monitor-label {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      margin: 4px 0 16px;
+      color: #aab5d1;
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #65e6b3;
+    }
+
+    .log-card { margin-top: 18px; }
+
+    #events {
+      display: grid;
+      gap: 9px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #events li {
+      padding: 12px 14px;
+      border: 1px solid #273252;
+      border-radius: 10px;
+      background: #101831;
+      color: #c3cee9;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    footer {
+      padding: 18px 8px 0;
+      color: #8793b1;
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 760px) {
+      .page { width: min(100% - 20px, 560px); padding-top: 12px; }
+      .hero, .card { padding: 21px; }
+      .grid { grid-template-columns: 1fr; }
+      .statusbar { align-items: flex-start; flex-direction: column; }
+      .buttons { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
+
 <body>
   <main class="page">
-    <header>
-      <p class="eyebrow">SIMULACIÓN PARA CLASE · NO PROCESA PAGOS REALES</p>
+    <header class="hero">
+      <p class="eyebrow">SIMULACIÓN EDUCATIVA · DEVOPS / CI/CD</p>
       <h1>CompraFácil</h1>
-      <p>Demostración de DevOps, CI/CD y monitoreo usando un pago simulado.</p>
+      <p class="subtitle">
+        Prueba un pago, observa qué registra el sistema y simula cómo responde
+        el equipo ante un problema.
+      </p>
     </header>
 
     <section class="statusbar" aria-live="polite">
-      <span>Versión en producción: <strong id="version">v1.2 estable</strong></span>
+      <span>Versión publicada: <strong id="version">v1.2 estable</strong></span>
       <span id="monitor" class="good">Monitoreo: sin alertas</span>
     </section>
 
-    <section class="columns">
+    <section class="grid">
       <article class="card">
-        <h2>1. Simula el checkout</h2>
-        <p>Usa los botones para representar las respuestas del proveedor de pagos.</p>
-        <p class="order">Pedido actual: <strong id="order">CF-1001</strong></p>
-        <div class="buttons">
-          <button id="approved">Simular pago aprobado</button>
-          <button id="declined" class="secondary">Simular pago rechazado</button>
-          <button id="retry" class="light">Reintentar la misma solicitud</button>
-          <button id="newOrder" class="light">Empezar otro pedido</button>
+        <h2>Simular una compra</h2>
+        <p class="muted">Estos botones representan respuestas ficticias del pago.</p>
+
+        <div class="order">
+          <span>Pedido actual</span>
+          <strong id="order">CF-1001</strong>
         </div>
-        <p id="result" class="result" aria-live="polite">Listo para probar el pago.</p>
+
+        <div class="buttons">
+          <button type="button" id="approved">Simular pago aprobado</button>
+          <button type="button" id="declined" class="secondary">Simular pago rechazado</button>
+          <button type="button" id="retry" class="soft">Reintentar la solicitud</button>
+          <button type="button" id="newOrder" class="soft">Empezar otro pedido</button>
+        </div>
+
+        <p id="result" class="result" aria-live="polite">
+          Listo para probar el pago.
+        </p>
       </article>
 
       <article class="card">
-        <h2>2. Observa el monitoreo</h2>
+        <h2>Monitoreo y recuperación</h2>
+        <p class="muted">Observa el estado de la tienda después de publicar.</p>
+
         <div class="metrics">
-          <div><span>Cobros registrados</span><strong id="charges">0</strong></div>
-          <div><span>Pagos rechazados</span><strong id="failures">0</strong></div>
+          <div class="metric">
+            <span>Cobros registrados</span>
+            <strong id="charges">0</strong>
+          </div>
+          <div class="metric">
+            <span>Pagos rechazados</span>
+            <strong id="failures">0</strong>
+          </div>
         </div>
-        <p class="hint">Un rechazo después de desplegar activa una alerta de ejemplo.</p>
-        <button id="deploy">Simular despliegue de v1.3</button>
-        <button id="rollback" class="warning">Simular reversión a v1.2</button>
+
+        <div class="monitor-label"><span class="dot"></span> Panel de actividad simulado</div>
+
+        <div class="buttons">
+          <button type="button" id="deploy">Simular despliegue v1.3</button>
+          <button type="button" id="rollback" class="warning">Volver a v1.2 estable</button>
+        </div>
       </article>
     </section>
 
     <section class="card log-card">
-      <h2>3. Registro de actividad</h2>
-      <ol id="events"><li>La tienda está lista.</li></ol>
+      <h2>Registro de actividad</h2>
+      <p class="muted">Aquí aparecen los pagos, reintentos y cambios de versión.</p>
+      <ol id="events">
+        <li>La tienda está lista para la demostración.</li>
+      </ol>
     </section>
-    <footer>Todo ocurre en este navegador. No ingreses números reales de tarjeta.</footer>
+
+    <footer>
+      Demo ficticia: no ingreses datos reales ni se realizan pagos.
+    </footer>
   </main>
-  <script type="module" src="app.js"></script>
+
+  <script type="module" src="./app.js"></script>
 </body>
 </html>
-
-
