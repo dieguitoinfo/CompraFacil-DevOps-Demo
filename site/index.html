@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CompraFácil | Demo DevOps</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <header>
+      <p class="eyebrow">SIMULACIÓN PARA CLASE · NO PROCESA PAGOS REALES</p>
+      <h1>CompraFácil</h1>
+      <p>Demostración de DevOps, CI/CD y monitoreo usando un pago simulado.</p>
+    </header>
+
+    <section class="statusbar" aria-live="polite">
+      <span>Versión en producción: <strong id="version">v1.2 estable</strong></span>
+      <span id="monitor" class="good">Monitoreo: sin alertas</span>
+    </section>
+
+    <section class="columns">
+      <article class="card">
+        <h2>1. Simula el checkout</h2>
+        <p>Usa los botones para representar las respuestas del proveedor de pagos.</p>
+        <p class="order">Pedido actual: <strong id="order">CF-1001</strong></p>
+        <div class="buttons">
+          <button id="approved">Simular pago aprobado</button>
+          <button id="declined" class="secondary">Simular pago rechazado</button>
+          <button id="retry" class="light">Reintentar la misma solicitud</button>
+          <button id="newOrder" class="light">Empezar otro pedido</button>
+        </div>
+        <p id="result" class="result" aria-live="polite">Listo para probar el pago.</p>
+      </article>
+
+      <article class="card">
+        <h2>2. Observa el monitoreo</h2>
+        <div class="metrics">
+          <div><span>Cobros registrados</span><strong id="charges">0</strong></div>
+          <div><span>Pagos rechazados</span><strong id="failures">0</strong></div>
+        </div>
+        <p class="hint">Un rechazo después de desplegar activa una alerta de ejemplo.</p>
+        <button id="deploy">Simular despliegue de v1.3</button>
+        <button id="rollback" class="warning">Simular reversión a v1.2</button>
+      </article>
+    </section>
+
+    <section class="card log-card">
+      <h2>3. Registro de actividad</h2>
+      <ol id="events"><li>La tienda está lista.</li></ol>
+    </section>
+    <footer>Todo ocurre en este navegador. No ingreses números reales de tarjeta.</footer>
+  </main>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+
+

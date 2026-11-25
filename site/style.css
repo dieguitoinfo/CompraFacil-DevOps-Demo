@@ -1,0 +1,24 @@
+:root { font-family: Arial, sans-serif; color: #19324a; background: #f3f7fa; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.page { max-width: 1050px; margin: 0 auto; padding: 36px 24px 24px; }
+header { background: #10243a; color: white; border-radius: 18px; padding: 30px 34px; }
+header h1 { margin: 5px 0 8px; font-size: 38px; }
+header p { margin: 7px 0; line-height: 1.5; }
+.eyebrow { color: #80d8cd; font-weight: bold; letter-spacing: .08em; font-size: 12px; }
+.statusbar { display: flex; justify-content: space-between; gap: 16px; margin: 20px 0; padding: 16px 20px; background: white; border-radius: 12px; }
+.good { color: #147d65; font-weight: bold; }.alert { color: #b83b3b; font-weight: bold; }
+.columns { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+.card { background: white; border: 1px solid #d9e2e9; border-radius: 14px; padding: 22px; margin-bottom: 18px; }
+h2 { margin: 0 0 10px; font-size: 21px; }
+.order { padding: 10px 12px; background: #edf4fb; border-radius: 8px; }
+.buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+button { border: 0; border-radius: 8px; padding: 12px; background: #0b8f87; color: white; font-weight: bold; cursor: pointer; }
+button:hover { filter: brightness(.94); }.secondary { background: #c84c4c; }.light { color: #19324a; background: #e8eff9; }.warning { background: #e78b42; margin-top: 8px; }
+.result { min-height: 48px; padding: 12px; background: #f3f7fa; border-radius: 8px; }
+.metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+.metrics div { background: #edf4fb; padding: 16px; border-radius: 10px; display: grid; gap: 8px; }
+.metrics strong { font-size: 28px; }.hint, footer { color: #536779; line-height: 1.5; }
+.log-card ol { margin: 8px 0 0; padding-left: 22px; }.log-card li { margin: 8px 0; }
+footer { text-align: center; padding: 6px; font-size: 14px; }
+@media (max-width: 720px) { .columns { grid-template-columns: 1fr; } .statusbar { flex-direction: column; } .buttons { grid-template-columns: 1fr; } }
